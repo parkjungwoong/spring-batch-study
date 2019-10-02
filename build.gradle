@@ -1,29 +1,30 @@
-plugins {
+plugins { // 플러그인 설정
 	id 'org.springframework.boot' version '2.1.8.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-	id 'java'
+	id 'java' //자바 플러그인
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
-configurations {
+configurations { 
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
 }
 
-repositories {
-	mavenCentral()
+repositories { // 저장소 설정
+	mavenCentral() //메이븐 저정소 지정
 }
 
-dependencies {
+dependencies {// 의존성 설정
+	//implementation "org.xxx.xxx:1.1" 형식으로 의존성 라이브러리를 추가 한다. ( compile 을 붙이는건 3.0 미만 버전, 3.0 이상 버전에서는 implementation 를 사용 )
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
+	implementation('com.h2database:h2')
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.batch:spring-batch-test'
