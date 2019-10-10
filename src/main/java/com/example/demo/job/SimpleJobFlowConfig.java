@@ -26,7 +26,7 @@ public class SimpleJobFlowConfig {
          */
         return jobBuilderFactory.get("flowJob")
                 .start(flowStep1())
-                    .on("FAILED") // FAILED 일 경우
+                    .on(ExitStatus.FAILED.getExitCode()) // FAILED 일 경우
                     .to(flowStep3()) // step3으로 이동한다.
                     .on("*") // step3의 결과 관계 없이
                     .end() // step3으로 이동하면 Flow가 종료한다.
@@ -38,6 +38,9 @@ public class SimpleJobFlowConfig {
                     .end() // step3으로 이동하면 Flow가 종료한다.
                 .end() // Job 종료
                 .build();
+        /**
+         * from() => 해당 step이 on 의 패턴데 맞으면 to 실행
+         */
     }
 
     @Bean
@@ -50,8 +53,7 @@ public class SimpleJobFlowConfig {
                      ExitStatus를 FAILED로 지정한다.
                      해당 status를 보고 flow가 진행된다.
                      **/
-                    contribution.setExitStatus(ExitStatus.FAILED);
-
+                    //contribution.setExitStatus(ExitStatus.FAILED);
                     return RepeatStatus.FINISHED;
                 })
                 .build();
